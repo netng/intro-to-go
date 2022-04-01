@@ -1,28 +1,30 @@
 package main
 
-import "testing"
+/*
+1. say 'Hello, World'
+2. say 'Hello, ${name}'
+3. say 'Hello, World' when empty string supplied as argument
+*/
 
-// requirements:
-// # when we run hello.go
-// # it should return string "Hello, ${name}"
+import "testing"
 
 func TestHello(t *testing.T) {
 	assertCorrectMessage := func(t testing.TB, got, want string) {
 		t.Helper()
 		if got != want {
-			t.Errorf("got: %q, want: %q", got, want)
+			t.Errorf("got %q, want %q", got, want)
 		}
 	}
 
-	t.Run("saying hello to people", func(t *testing.T) {
-		got := Hello("Asep")
-		want := "Hello, Asep"
+	t.Run("say hello to people", func(t *testing.T) {
+		got := Hello("nan")
+		want := "Hello, nan"
 		assertCorrectMessage(t, got, want)
 	})
 
-	t.Run("say 'Hello, World' when an empty string is supplied", func(t *testing.T) {
-		got := Hello("")
-		want := "Hello, World"
+	t.Run("say 'Hello, World' when empty string supplied as argument", func(t *testing.T) {
+		got := Hello("nan")
+		want := "Hello, nan"
 		assertCorrectMessage(t, got, want)
 	})
 }
