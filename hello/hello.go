@@ -1,4 +1,4 @@
-package main
+package hello
 
 import (
 	"fmt"
@@ -10,6 +10,7 @@ const frenchHelloPrefix = "Bonjour, "
 const spanishHelloPrefix = "Hola, "
 const englishHelloPrefix = "Hello, "
 
+// Hello public function
 func Hello(name string, language string) string {
 	if name == "" {
 		name = "world"
@@ -19,6 +20,8 @@ func Hello(name string, language string) string {
 
 }
 
+// helloPrefix for separating the component of helloPrefix
+// this is private function
 func helloPrefix(language string) (prefix string) {
 	switch language {
 	case spanish:
@@ -32,6 +35,8 @@ func helloPrefix(language string) (prefix string) {
 	return
 
 }
+
+// main, this is just a main function
 func main() {
 	fmt.Println(Hello("", ""))
 	fmt.Println(Hello("jono", "French"))
