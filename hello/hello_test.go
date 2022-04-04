@@ -48,3 +48,9 @@ func ExampleHello() {
 	fmt.Println(got)
 	// Output: Bonjour, jono
 }
+
+func BenchmarkHello(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Hello("jono", "Spanish")
+	}
+}
