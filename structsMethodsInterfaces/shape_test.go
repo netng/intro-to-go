@@ -1,6 +1,7 @@
 package structsMethodsInterfaces
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -39,9 +40,9 @@ func TestArea(t *testing.T) {
 		shape   Shape
 		hasArea float64
 	}{
-		{name: "Rectangle", shape: Rectangle{Width: 12, Height: 6}, hasArea: 72.0},
-		{name: "Circle", shape: Circle{Radius: 10}, hasArea: 314.1592653589793},
-		{name: "Triangle", shape: Triangle{Base: 12, Height: 6}, hasArea: 36.0},
+		{name: "Rectangle", shape: Rectangle{Width: 12.0, Height: 6.0}, hasArea: 72.0},
+		{name: "Circle", shape: Circle{Radius: 10.0}, hasArea: 314.1592653589793},
+		{name: "Triangle", shape: Triangle{Base: 12.0, Height: 6.0}, hasArea: 36.0},
 	}
 
 	for _, tt := range areaTests {
@@ -52,4 +53,18 @@ func TestArea(t *testing.T) {
 			}
 		})
 	}
+}
+
+func ExamplePerimeter() {
+	rectangle := Rectangle{10.0, 20.0}
+	got := Perimeter(rectangle)
+	fmt.Println(got)
+	// Output: 60
+}
+
+func ExampleArea() {
+	rectangle := Rectangle{12.0, 6.0}
+	got := rectangle.Area()
+	fmt.Println(got)
+	// Output: 72
 }
