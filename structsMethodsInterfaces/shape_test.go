@@ -1,70 +1,39 @@
 package structsMethodsInterfaces
 
-import (
-	"fmt"
-	"testing"
-)
+import "testing"
 
 func TestPerimeter(t *testing.T) {
-	rectangle := Rectangle{10.0, 20.0}
-	got := Perimeter(rectangle)
-	want := 60.0
+	shapes := []struct {
+		shape Shape
+		want  float64
+	}{
+		{Rectangle{10.0, 20.0}, 60},
+		{Circle{10.0}, 62.83185307179586},
+	}
 
-	if got != want {
-		t.Errorf("got: %.2f, want: %.2f", got, want)
+	for _, tt := range shapes {
+		got := tt.shape.Perimeter()
+		if got != tt.want {
+			t.Errorf("got: %.2f, want: %.2f", got, tt.want)
+		}
 	}
 }
 
 func TestArea(t *testing.T) {
-	//checkArea := func(t testing.TB, shape Shape, want float64) {
-	//	t.Helper()
-	//	got := shape.Area()
-
-	//	if got != want {
-	//		t.Errorf("got: %.2f, want: %.2f", got, want)
-	//	}
-	//}
-
-	//t.Run("rectangles", func(t *testing.T) {
-	//	rectangle := Rectangle{20.0, 30.0}
-	//	checkArea(t, rectangle, 600.0)
-	//})
-
-	//t.Run("circles", func(t *testing.T) {
-	//	circle := Circle{10}
-	//	checkArea(t, circle, 314.1592653589793)
-	//})
-
-	areaTests := []struct {
-		name    string
-		shape   Shape
-		hasArea float64
+	shapes := []struct {
+		name  string
+		shape Shape
+		want  float64
 	}{
-		{name: "Rectangle", shape: Rectangle{Width: 12.0, Height: 6.0}, hasArea: 72.0},
-		{name: "Circle", shape: Circle{Radius: 10.0}, hasArea: 314.1592653589793},
-		{name: "Triangle", shape: Triangle{Base: 12.0, Height: 6.0}, hasArea: 36.0},
+		{name: "Rectangle", shape: Rectangle{20.0, 10.0}, want: 200.0},
+		{name: "Circle", shape: Circle{10.0}, want: 314.1592653589793},
 	}
 
-	for _, tt := range areaTests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := tt.shape.Area()
-			if got != tt.hasArea {
-				t.Errorf("%#v got %g, want %g", tt.shape, got, tt.hasArea)
-			}
-		})
+	for _, tt := range shapes {
+		got := tt.shape.Area()
+		if got != tt.want {
+			t.Errorf("%#v, got: %.2f, want: %.2f", tt.shape, got, tt.want)
+		}
 	}
-}
 
-func ExamplePerimeter() {
-	rectangle := Rectangle{10.0, 20.0}
-	got := Perimeter(rectangle)
-	fmt.Println(got)
-	// Output: 60
-}
-
-func ExampleArea() {
-	rectangle := Rectangle{12.0, 6.0}
-	got := rectangle.Area()
-	fmt.Println(got)
-	// Output: 72
 }
