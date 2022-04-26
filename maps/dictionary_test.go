@@ -8,8 +8,14 @@ func TestDictionary(t *testing.T) {
 	got := Search(dictionary, "test")
 	want := "this is just a test"
 
-	if got != want {
-		t.Errorf("got %q, want: %q give, %q", got, want, "test")
-	}
+	assertStrings(t, got, want)
 
+}
+
+func assertStrings(t testing.TB, got, want string) {
+	t.Helper()
+
+	if got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
 }
