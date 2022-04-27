@@ -13,41 +13,38 @@ func TestSearch(t *testing.T) {
 	})
 
 	t.Run("unknown word", func(t *testing.T) {
-		_, err := dictionary.Search("unknown")
+		_, got := dictionary.Search("unknown")
 
-		assertError(t, err, ErrNotFound)
+		assertError(t, got, ErrNotFound)
 	})
 }
 
 func TestAdd(t *testing.T) {
-
 	t.Run("new word", func(t *testing.T) {
 		dictionary := Dictionary{}
+		word := "word"
+		definition := "this is just a definition"
 
-		word := "test"
-		definition := "this is just a test"
+		dictionary.Add(word, definition)
 
-		err := dictionary.Add(word, definition)
-
-		assertError(t, err, nil)
 		assertDefinition(t, dictionary, word, definition)
-
 	})
 
 	t.Run("existing word", func(t *testing.T) {
-		word := "test"
-		definition := "this is just a tes"
-
+		word := "word"
+		definition := "this just a test"
 		dictionary := Dictionary{word: definition}
-		err := dictionary.Add(word, "new test")
 
-		assertError(t, err, ErrWordExists)
+		got := dictionary.Add(word, "new definition")
+
+		assertError(t, got, ErrWordExists)
 		assertDefinition(t, dictionary, word, definition)
+
 	})
 }
 
 func TestUpdate(t *testing.T) {
-	t.Run("existind word", func(t *testing.T) {
+	t.Run("existing word", func(t *testing.T) {
 		word := "test"
 		definition := "this is just a test"
 		dictionary := Dictionary{word: definition}
@@ -57,30 +54,41 @@ func TestUpdate(t *testing.T) {
 
 		assertError(t, err, nil)
 		assertDefinition(t, dictionary, word, newDefinition)
-
 	})
 
 	t.Run("new word", func(t *testing.T) {
 		word := "test"
-		definition := "this is just a test"
+		definition := "this is just a definition"
 		dictionary := Dictionary{}
 
 		err := dictionary.Update(word, definition)
 
 		assertError(t, err, ErrWordDoesNotExist)
+
 	})
+
 }
 
 func TestDelete(t *testing.T) {
-	word := "test"
-	dictionary := Dictionary{word: "test definition"}
+	word := "word"
+	definition := "definition"
+
+	dictionary := Dictionary{word: definition}
 
 	dictionary.Delete(word)
 
 	_, err := dictionary.Search(word)
 
 	if err != ErrNotFound {
-		t.Errorf("Expected %q to be deleted", word)
+		t.Errorf("expected %q to be deleted", word)
+	}
+}
+
+func assertError(t testing.TB, got, want error) {
+	t.Helper()
+
+	if got != want {
+		t.Errorf("got an error %q, want %q", got, want)
 	}
 }
 
@@ -104,13 +112,5 @@ func assertString(t testing.TB, got, want string) {
 
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)
-	}
-}
-
-func assertError(t testing.TB, got, want error) {
-	t.Helper()
-
-	if got != want {
-		t.Errorf("got an error %q, want %q", got, want)
 	}
 }

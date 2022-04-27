@@ -1,18 +1,18 @@
 package maps
 
 const (
-	ErrNotFound         = dictionaryErr("could not find word you were looking for")
-	ErrWordExists       = dictionaryErr("can not add word because it already exists")
-	ErrWordDoesNotExist = dictionaryErr("can not update word because it doest not exists")
+	ErrNotFound         = DictionaryErr("could not find word you were looking for")
+	ErrWordExists       = DictionaryErr("word you were add already exists")
+	ErrWordDoesNotExist = DictionaryErr("can not update word because is doesnt exist")
 )
 
-type dictionaryErr string
-
-func (e dictionaryErr) Error() string {
-	return string(e)
-}
+type DictionaryErr string
 
 type Dictionary map[string]string
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 func (d Dictionary) Search(word string) (string, error) {
 	definition, ok := d[word]
