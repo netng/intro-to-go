@@ -7,6 +7,7 @@ import (
 
 func TestDi(t *testing.T) {
 	buffer := bytes.Buffer{}
+
 	Greet(&buffer, "Nan")
 
 	got := buffer.String()
@@ -15,4 +16,5 @@ func TestDi(t *testing.T) {
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)
 	}
+
 }

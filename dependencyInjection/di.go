@@ -12,9 +12,10 @@ func Greet(writer io.Writer, name string) {
 }
 
 func MyGreetHandler(w http.ResponseWriter, r *http.Request) {
-	Greet(w, "world")
+	Greet(w, "Nan")
 }
 
 func main() {
+	//Greet(os.Stdout, "Nan")
 	log.Fatal(http.ListenAndServe(":5000", http.HandlerFunc(MyGreetHandler)))
 }
